@@ -15,6 +15,8 @@
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
 from flask import Flask
+from flask import request
+from flask import render_template
 # from flask import render_template
 # from flask import request
 
@@ -28,3 +30,13 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     return "hello world"
+
+@app.route('/results')
+def results():
+    results = {"ID": request.form['Idaho'], 
+    "CA": request.form["California"], 
+    "NY": request.form['New York'], 
+    "TX": request.form["Texas"], 
+    "IL": request.form["Illinois"]}
+
+    return render_template("results.html", results=results)
