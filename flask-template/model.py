@@ -11,4 +11,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from flask import Flask
+from flask import request
+from flask import render_template
+app = Flask(__name__)
+
+
+@app.route('/results', methods = 'GET')
+
+def answers(answer):
+
+    correct_answers = {'Idaho': 'Boise', 'New York': 'Albany', 'California': 'Sacramento', 'Texas': 'Austin', 'Illinois': 'Springfield'}
+    output = {}
+
+    for el in answer:
+
+        if answer[el].lower() == correct_answers[el].lower():
+            output[el] = 'Correct'
+
+        else:
+            output[el] = 'Incorrect'
+
+    return render_template('results.html', results=output)        
+
 
