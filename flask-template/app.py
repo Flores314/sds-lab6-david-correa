@@ -29,12 +29,21 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/results')
+@app.route('/results', methods=["post", "get"])
 def results():
-    results = {"ID": request.form['Idaho'], 
-    "CA": request.form["California"], 
-    "NY": request.form['New York'], 
-    "TX": request.form["Texas"], 
-    "IL": request.form["Illinois"]}
+    if request.method== "post":
+        results = {"ID": request.form['Idaho'], 
+        "CA": request.form["California"], 
+        "NY": request.form['New York'], 
+        "TX": request.form["Texas"], 
+        "IL": request.form["Illinois"]}
 
-    return render_template("results.html", results=results)
+        return render_template("results.html", results=results)
+    else:
+        results = {"ID": request.form['Idaho'], 
+        "CA": request.form["California"], 
+        "NY": request.form['New York'], 
+        "TX": request.form["Texas"], 
+        "IL": request.form["Illinois"]}
+
+        return render_template("results.html", results=results)
