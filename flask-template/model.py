@@ -17,21 +17,28 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route('/results', methods = 'GET')
+@app.route('/results', methods = ['POST'])
 
 def answers(answer):
 
-    correct_answers = {'Idaho': 'Boise', 'New York': 'Albany', 'California': 'Sacramento', 'Texas': 'Austin', 'Illinois': 'Springfield'}
+
+
+    correct_answers = {'ID': 'Boise', 'NY': 'Albany', 'CA': 'Sacramento', 'TX': 'Austin', 'IL': 'Springfield'}
     output = {}
 
     for el in answer:
 
+        if answer[el] == '':
+
+            return ''
+
         if answer[el].lower() == correct_answers[el].lower():
-            output[el] = 'Correct'
+            output[el] = el + ': ' + correct_answers[el] + ' is correct!'
 
         else:
-            output[el] = 'Incorrect'
+            output[el] = el + ':' + answer[el] + ' is incorrect. It should be ' + correct_answers[el] + '!'
 
-    return render_template('results.html', results=output)        
+    return output       
+
 
 

@@ -11,12 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#Jonathan Avalos and Jonathan Flores
 
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
 from flask import Flask
 from flask import request
 from flask import render_template
+from model import answers
 
 
 # -- Initialization section --
@@ -29,16 +31,16 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/results', methods=["post", "get"])
+@app.route('/results', methods=["POST", "GET"])
 def results():
-    if request.method== "post":
+    if request.method== "POST":
         results = {"ID": request.form['Idaho'], 
         "CA": request.form["California"], 
         "NY": request.form['New York'], 
         "TX": request.form["Texas"], 
         "IL": request.form["Illinois"]}
 
-        return render_template("results.html", results=results)
+        return render_template("results.html", results=answers(results))
     else:
         results = {"ID": request.form['Idaho'], 
         "CA": request.form["California"], 
@@ -46,4 +48,4 @@ def results():
         "TX": request.form["Texas"], 
         "IL": request.form["Illinois"]}
 
-        return render_template("results.html", results=results)
+        return render_template("results.html", results=answers(results))
